@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router"
+import styles from "./Login.module.css"
 
 const apiUrl = import.meta.env.VITE_API_URL
 
@@ -19,6 +20,7 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setLoading(true)
 
     if (!username || !password) {
       setError('Please fill in all fields')
@@ -47,8 +49,9 @@ function Login() {
   }
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
+    <div className={styles.container}>
+      <form className={styles.login_form} onSubmit={handleSubmit}>
+        <p>Login</p>
         {error && <p>{error}</p>}
 
         <label>Username:</label>
@@ -73,7 +76,7 @@ function Login() {
           {loading ? 'Logging in...' : 'Login'}
         </button>
       </form>
-    </>
+    </div>
   )
 }
 

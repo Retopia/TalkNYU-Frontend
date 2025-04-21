@@ -1,0 +1,8 @@
+.content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.content p {
+  font-size: 20px;
+}

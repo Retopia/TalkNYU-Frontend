@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react"
+import styles from "./Feed.module.css"
 
 const apiUrl = import.meta.env.VITE_API_URL
 
 function Post({ owner, title, body }) {
   return (
-    <>
-      <p>Post by {owner}</p>
-      <p>{title}</p>
+    <div className={styles.post}>
+      <div className={styles.post_header}>
+        <p className={styles.post_title}>{title}</p>
+        <p >Post by {owner}</p>
+      </div>
       <p>{body}</p>
-    </>
+    </div>
   )
 }
 
@@ -36,7 +39,7 @@ function Feed() {
   }, [])
 
   return (
-    <>
+    <div className={styles.container}>
       {feedData.map((post, index) => (
         <Post
           key={post.id}
@@ -44,7 +47,7 @@ function Feed() {
           title={post.title}
           body={post.body} />
       ))}
-    </>
+    </div>
   )
 }
 

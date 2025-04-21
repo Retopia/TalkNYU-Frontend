@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router"
+import styles from "./CreatePost.module.css"
 
 const apiUrl = import.meta.env.VITE_API_URL
 
@@ -12,6 +13,7 @@ function CreatePost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setLoading(true)
 
     if (!title || !body) {
       setError('Please fill in all fields')
@@ -44,9 +46,11 @@ function CreatePost() {
   }
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
+    <div className={styles.container}>
+      <form className={styles.create_form} onSubmit={handleSubmit}>
         {error && <p>{error}</p>}
+
+        <p>Create a Post</p>
 
         <label>Title:</label>
         <input
@@ -70,7 +74,7 @@ function CreatePost() {
           {loading ? 'Creating...' : 'Create'}
         </button>
       </form>
-    </>
+    </div>
   )
 }
 

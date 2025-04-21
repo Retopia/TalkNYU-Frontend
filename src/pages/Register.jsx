@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router"
+import styles from './Register.module.css'
 
 const apiUrl = import.meta.env.VITE_API_URL
 
@@ -22,6 +23,7 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setLoading(true)
 
     if (!username || !password || !email || !passwordConfirmation) {
       setError('Please fill in all fields')
@@ -50,9 +52,11 @@ function Register() {
   }
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
+    <div className={styles.container}>
+      <form className={styles.register_form} onSubmit={handleSubmit}>
         {error && <p>{error}</p>}
+
+        <p>Register</p>
 
         <label>Username:</label>
         <input
@@ -94,7 +98,7 @@ function Register() {
           {loading ? 'Registering...' : 'Register'}
         </button>
       </form>
-    </>
+    </div>
   )
 }
 

@@ -1,5 +1,6 @@
 import { Link } from "react-router"
 import { useNavigate } from "react-router"
+import styles from './Navbar.module.css'
 
 function Navbar() {
   const navigate = useNavigate()
@@ -12,16 +13,17 @@ function Navbar() {
 
   return (
     <>
-      <nav>
-        <ul>
-          <li><Link to="/feed">Feed</Link></li>
-          <li><Link to="/post">Post</Link></li>
+      <nav className={styles.navbar}>
+        <Link className={styles.navbar_title} to="/">TalkNYU</Link>
+        <ul className={styles.navbar_links}>
+          <li><Link className={styles.navbar_link} to="/feed">Feed</Link></li>
+          <li><Link className={styles.navbar_link} to="/post">Post</Link></li>
           {loggedIn ?
-            <li><button onClick={handleLogout}>Logout</button></li>
+            <li><button className={styles.navbar_button} onClick={handleLogout}>Logout</button></li>
             :
             <>
-              <li><Link to="/login">Login</Link></li>
-              <li><Link to="/register">Register</Link></li>
+              <li><Link className={styles.navbar_link} to="/login">Login</Link></li>
+              <li><Link className={styles.navbar_link} to="/register">Register</Link></li>
             </>}
         </ul>
       </nav>
