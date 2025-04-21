@@ -1,12 +1,21 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router"
 
 const apiUrl = import.meta.env.VITE_API_URL
 
 function Login() {
+  const navigate = useNavigate()
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      navigate('/feed')
+    }
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -28,6 +37,8 @@ function Login() {
 
       const data = await res.json()
       console.log(data)
+      localStorage.setItem('token', data.token)
+      navigate('/feed')
     } catch (err) {
       setError(err.message || 'Something went wrong');
     } finally {

@@ -1,14 +1,24 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router"
 
 const apiUrl = import.meta.env.VITE_API_URL
 
 function Register() {
+  const navigate = useNavigate()
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [passwordConfirmation, setPasswordConfirmation] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      navigate('/feed')
+    }
+  }, [])
+
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -30,8 +40,10 @@ function Register() {
 
       const data = await res.json()
       console.log(data)
+      localStorage.setItem('token', data.token)
+      navigate('/feed')
     } catch (err) {
-      setError(err.message || 'Something went wrong');
+      setError(err.message || 'Something went wrong')
     } finally {
       setLoading(false)
     }
