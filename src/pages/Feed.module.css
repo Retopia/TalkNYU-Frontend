@@ -7,20 +7,68 @@
 
 .post {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   border-radius: 1rem;
   border: 2px dashed black;
   padding: 1rem 1rem;
 }
 
-.post_header {
+.postHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.post_title {
+.postTitle {
   font-size: 24px;
   font-weight: bold;
-  margin: 0rem 0rem;
+  margin: 0;
+}
+
+.postDescriptor {
+  display: flex;
+  flex-direction: column;
+}
+
+.postAuthor {
+  padding: 0;
+  margin: 0;
+}
+
+.postTime {
+  padding: 0;
+  margin: 0;
+}
+
+.searchContainer {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  width: fit-content;
+  height: 26px;
+  border-radius: 4px;
+}
+
+.searchBar {
+  height: 26px;
+  width: 10rem;
+  outline: none;
+  border: none;
+}
+
+.searchButton {
+  display: flex;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchIcon {
+  color: black;
+  height: 20px;
+  width: 20px;
 }
