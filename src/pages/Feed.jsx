@@ -47,16 +47,17 @@ function SearchBar({ searchData, setSearchParams }) {
   }
 
   return (
-    <form onSubmit={handleSearch} className={styles.searchContainer}>
+    <form onSubmit={handleSearch} className={styles['search-container']}>
       <input
         type="text"
         name="search"
         value={inputValue}
         onChange={e => setInputValue(e.target.value)}
-        className={styles.searchBar}>
+        className={styles['search-bar']}
+        placeholder="Search for posts, topics, etc...">
       </input>
-      <button type="submit" className={styles.searchButton}>
-        <Search className={styles.searchIcon} />
+      <button type="submit" className={styles['search-button']}>
+        <Search className={styles['search-icon']} />
       </button>
 
     </form>
@@ -65,15 +66,25 @@ function SearchBar({ searchData, setSearchParams }) {
 
 function Post({ owner, title, body, created_at }) {
   return (
-    <div className={styles.post}>
-      <div className={styles.postHeader}>
-        <p className={styles.postTitle}>{title}</p>
-        <div className={styles.postDescriptor}>
-          <p className={styles.postAuthor}>Post by {owner}</p>
-          <p className={styles.postTime}>Posted {calculateData(created_at)} ago</p>
+    <div className={styles['post']}>
+      <div className={styles['post-header']}>
+        <div className={styles['post-metadata']}>
+          <div className={styles['avatar']}>{owner[0].toUpperCase()}</div>
+          <div className={styles['post-descriptor']}>
+            <p className={styles['post-author']}>{owner}</p>
+            <p className={styles['post-time']}>{calculateData(created_at)} ago</p>
+          </div>
         </div>
       </div>
-      <p>{body}</p>
+      <div className={styles['post-content']}>
+        <p className={styles['post-title']}>{title}</p>
+        <p>{body}</p>
+      </div>
+      <div className={styles['post-footer']}>
+        <button className={styles['action-button']}>Like</button>
+        <button className={styles['action-button']}>Comment</button>
+        <button className={styles['action-button']}>Share</button>
+      </div>
     </div>
   )
 }
@@ -140,15 +151,17 @@ function Feed() {
   return (
     <div className={styles.container}>
       <SearchBar searchData={searchData} setSearchParams={setSearchParams} />
-      {feedData.map((post) => (
-        <Post
-          key={post.id}
-          owner={post.owner}
-          title={post.title}
-          body={post.body}
-          created_at={post.created_at}
-        />
-      ))}
+      <div className={styles['feed-container']}>
+        {feedData.map((post) => (
+          <Post
+            key={post.id}
+            owner={post.owner}
+            title={post.title}
+            body={post.body}
+            created_at={post.created_at}
+          />
+        ))}
+      </div>
     </div>
   )
 }

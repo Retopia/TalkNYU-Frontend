@@ -1,73 +1,129 @@
 .container {
+  width: 100%;
+  overflow: hidden;
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+.feed-container {
   display: flex;
-  padding: 2rem 50vh;
   flex-direction: column;
+  max-width: 700px;
+  margin: 1rem auto;
   gap: 1rem;
 }
 
 .post {
   display: flex;
   flex-direction: column;
-  border-radius: 1rem;
-  border: 2px dashed black;
-  padding: 1rem 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  background-color: #fff;
 }
 
-.postHeader {
+.post-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 1rem 1rem;
 }
 
-.postTitle {
+.post-content {
+  padding: 0.1rem 1rem;
+}
+
+.post-footer {
+  display: flex;
+  padding: 1rem 1rem;
+  border-top: 1px solid #ccc;
+}
+
+.action-button {
+  font: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.post:hover {
+  transform: translateY(-2px);
+}
+
+.post-title {
   font-size: 24px;
   font-weight: bold;
   margin: 0;
 }
 
-.postDescriptor {
+.avatar {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.post-metadata {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.post-descriptor {
   display: flex;
   flex-direction: column;
 }
 
-.postAuthor {
+.post-author {
   padding: 0;
   margin: 0;
 }
 
-.postTime {
+.post-time {
   padding: 0;
   margin: 0;
+  font-size: 12px;
 }
 
-.searchContainer {
+.search-container {
   display: flex;
   flex-direction: row;
+  width: 100%;
+  max-width: 600px;
   overflow: hidden;
   border: 1px solid #ccc;
-  width: fit-content;
   height: 26px;
-  border-radius: 4px;
+  padding: 1.25rem 0.4rem 1.25rem 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 24px;
+  margin: 2rem auto;
+  align-items: center;
+  background-color: #fff;
 }
 
-.searchBar {
+.search-bar {
   height: 26px;
-  width: 10rem;
+  width: 100%;
+  font-size: 18px;
   outline: none;
   border: none;
 }
 
-.searchButton {
+.search-button {
   display: flex;
   background: none;
   border: none;
-  padding: 0;
   cursor: pointer;
   justify-content: center;
   align-items: center;
 }
 
-.searchIcon {
+.search-icon {
   color: black;
   height: 20px;
   width: 20px;
