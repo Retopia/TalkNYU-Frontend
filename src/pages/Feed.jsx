@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useSearchParams } from "react-router"
-import { Search } from "lucide-react"
+import { Search, ThumbsUp, Share, MessageSquareMore } from "lucide-react"
 import styles from "./Feed.module.css"
 
 const apiUrl = import.meta.env.VITE_API_URL
@@ -81,9 +81,18 @@ function Post({ owner, title, body, created_at }) {
         <p>{body}</p>
       </div>
       <div className={styles['post-footer']}>
-        <button className={styles['action-button']}>Like</button>
-        <button className={styles['action-button']}>Comment</button>
-        <button className={styles['action-button']}>Share</button>
+        <button className={styles['action-button']}>
+          <ThumbsUp className={styles['action-button-icon']} />
+          Like
+        </button>
+        <button className={styles['action-button']}>
+          <MessageSquareMore className={styles['action-button-icon']} />
+          Comment
+        </button>
+        <button className={styles['action-button']}>
+          <Share className={styles['action-button-icon']} />
+          Share
+        </button>
       </div>
     </div>
   )
