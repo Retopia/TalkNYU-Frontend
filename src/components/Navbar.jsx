@@ -18,6 +18,7 @@ function Navbar() {
         <ul className={styles.navbar_links}>
           {loggedIn ?
             <>
+              <li><Link className={styles.navbar_link} to="/">Home</Link></li>
               <li><Link className={styles.navbar_link} to="/feed">Feed</Link></li>
               <li><Link className={styles.navbar_link} to="/post">Post</Link></li>
               <li><button className={styles.navbar_button} onClick={handleLogout}>Logout</button></li>

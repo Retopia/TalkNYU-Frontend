@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
-import { useSearchParams } from "react-router"
-import { Search, ThumbsUp, Share, MessageSquareMore } from "lucide-react"
+import { useSearchParams, useNavigate } from "react-router"
+import { Check, Plus, Search, ThumbsUp, Share, MessageSquareMore } from "lucide-react"
 import styles from "./Feed.module.css"
 
 const apiUrl = import.meta.env.VITE_API_URL
@@ -64,10 +64,48 @@ function SearchBar({ searchData, setSearchParams }) {
   )
 }
 
-function Post({ owner, title, body, created_at }) {
+function Post({ id, owner, title, body, created_at, likes, comments, has_liked }) {
+  const [copied, setCopied] = useState(false)
+  const [liked, setLiked] = useState(has_liked)
+  const [likeCount, setLikeCount] = useState(likes)
+  const [commentCount, setCommentCount] = useState(comments)
+  const navigate = useNavigate()
+
+  const handleShare = () => {
+    navigator.clipboard.writeText(window.location.origin + `/view/post/${id}`)
+    setCopied(true)
+
+    setTimeout(() => {
+      setCopied(false)
+    }, 1000)
+  }
+
+  const handleLike = async () => {
+    const url = `${apiUrl}/posts/${id}/like`
+    const method = liked ? 'DELETE' : 'POST'
+    setLiked(!liked)
+    setLikeCount(prev => liked ? prev - 1 : prev + 1)
+
+    try {
+      const response = await fetch(url, {
+        method,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+
+      if (!response.ok) {
+        throw new Error(`${liked ? 'Unliking' : 'Liking'} failed`);
+      }
+
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   return (
     <div className={styles['post']}>
-      <div className={styles['post-header']}>
+      <div onClick={() => navigate(`/post/${id}`)} className={styles['post-header']}>
         <div className={styles['post-metadata']}>
           <div className={styles['avatar']}>{owner[0].toUpperCase()}</div>
           <div className={styles['post-descriptor']}>
@@ -76,22 +114,25 @@ function Post({ owner, title, body, created_at }) {
           </div>
         </div>
       </div>
-      <div className={styles['post-content']}>
+      <div onClick={() => navigate(`/view/post/${id}`)} className={styles['post-content']}>
         <p className={styles['post-title']}>{title}</p>
         <p>{body}</p>
       </div>
       <div className={styles['post-footer']}>
-        <button className={styles['action-button']}>
-          <ThumbsUp className={styles['action-button-icon']} />
-          Like
+        <button onClick={handleLike} className={styles['action-button']}>
+          <ThumbsUp className={liked ? styles['liked-button'] : styles['action-button-icon']} />
+          {liked ? 'Liked' : 'Like'} {likeCount > 0 ? `(${likeCount})` : ''}
         </button>
         <button className={styles['action-button']}>
           <MessageSquareMore className={styles['action-button-icon']} />
-          Comment
+          Comment {commentCount > 0 ? `(${commentCount})` : ''}
         </button>
-        <button className={styles['action-button']}>
-          <Share className={styles['action-button-icon']} />
-          Share
+        <button onClick={handleShare} className={styles['action-button']}>
+          {copied ?
+            <Check className={styles['action-button-icon']} />
+            :
+            <Share className={styles['action-button-icon']} />}
+          {copied ? 'Link copied!' : 'Share'}
         </button>
       </div>
     </div>
@@ -102,6 +143,7 @@ function Post({ owner, title, body, created_at }) {
 function Feed() {
   const [feedData, setFeedData] = useState([])
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate()
 
   const searchData = searchParams.get("search") || "";
 
@@ -110,64 +152,51 @@ function Feed() {
       try {
         const url = searchData
           ? `${apiUrl}/posts?search=${encodeURIComponent(searchData)}`
-          : `${apiUrl}/posts`;
+          : `${apiUrl}/posts`
 
         const response = await fetch(url, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        });
+        })
 
         if (!response.ok) {
           throw new Error("Fetching posts failed");
         }
 
         const data = await response.json();
-        setFeedData(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    getFeed();
-  }, [searchData]);
-
-
-  useEffect(() => {
-    const getFeed = async () => {
-      try {
-        const response = await fetch(apiUrl + '/posts', {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-          },
-        })
-
-        if (!response.ok) {
-          throw new Error("Fetching posts failed")
-        }
-
-        const data = await response.json()
-        console.log(data)
         setFeedData(data)
       } catch (err) {
         console.log(err)
       }
-    }
+    };
 
     getFeed()
-  }, [])
+  }, [searchData])
+
+
+  const postButtonAction = () => {
+    navigate('/post')
+  }
 
   return (
     <div className={styles.container}>
+      <button onClick={postButtonAction} className={styles['plus-button']}>
+        <Plus className={styles['plus-button-icon']} />
+      </button>
       <SearchBar searchData={searchData} setSearchParams={setSearchParams} />
       <div className={styles['feed-container']}>
         {feedData.map((post) => (
           <Post
             key={post.id}
+            id={post.id}
             owner={post.owner}
             title={post.title}
             body={post.body}
             created_at={post.created_at}
+            likes={post.likes}
+            comments={post.comments}
+            has_liked={post.has_liked}
           />
         ))}
       </div>

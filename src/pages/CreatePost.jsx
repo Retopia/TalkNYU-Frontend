@@ -10,6 +10,8 @@ function CreatePost() {
   const [body, setBody] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const maxTitleLength = 70
+  const maxContentLength = 300
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -50,12 +52,13 @@ function CreatePost() {
       <form className={styles.create_form} onSubmit={handleSubmit}>
         {error && <p>{error}</p>}
 
-        <p>Create a Post</p>
+        <p className={styles['form-title']}>Create a Post</p>
 
         <label>Title:</label>
         <input
           type="text"
           name="title"
+          maxLength={maxTitleLength}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
@@ -66,9 +69,12 @@ function CreatePost() {
           type="text"
           name="body"
           value={body}
+          maxLength={maxContentLength}
           onChange={(e) => setBody(e.target.value)}
           required
         />
+
+        <p className={styles['character-counter']}>{maxContentLength - body.length} characters remaining</p>
 
         <button type="submit" disabled={loading}>
           {loading ? 'Creating...' : 'Create'}
