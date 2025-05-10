@@ -23,11 +23,13 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setLoading(true)
 
     if (!username || !password || !email || !passwordConfirmation) {
       setError('Please fill in all fields')
+      return
     }
+
+    setLoading(true)
 
     try {
       const res = await fetch(apiUrl + '/register', {
@@ -53,10 +55,9 @@ function Register() {
 
   return (
     <div className={styles.container}>
-      <form className={styles.register_form} onSubmit={handleSubmit}>
-        {error && <p>{error}</p>}
-
-        <p>Register</p>
+      <form className={styles['register-form']} onSubmit={handleSubmit}>
+        <p className={styles['title-text']}>Register</p>
+        {error && <p className={styles['error-text']}>{error}</p>}
 
         <label>Username:</label>
         <input
@@ -64,7 +65,6 @@ function Register() {
           name="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          required
         />
 
         <label>Email:</label>
@@ -73,7 +73,6 @@ function Register() {
           name="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
         />
 
         <label>Password:</label>
@@ -82,7 +81,6 @@ function Register() {
           name="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
         />
 
         <label>Password Confirmation:</label>
@@ -91,7 +89,6 @@ function Register() {
           name="passwordConfirmation"
           value={passwordConfirmation}
           onChange={(e) => setPasswordConfirmation(e.target.value)}
-          required
         />
 
         <button type="submit" disabled={loading}>

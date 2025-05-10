@@ -6,7 +6,7 @@
   background-color: rgba(250, 250, 250, 1);
 }
 
-.register_form {
+.register-form {
   display: flex;
   width: 100%;
   max-width: 500px;
@@ -17,19 +17,27 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.register_form p {
+.title-text {
   font-weight: bold;
   font-size: 24px;
   margin: 0 0;
   padding: 0 0;
 }
 
-.register_form label {
+.error-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: red;
+  margin: 0 0;
+  padding: 0 0;
+}
+
+.register-form label {
   margin-top: 4px;
   margin-bottom: 2px;
 }
 
-.register_form input {
+.register-form input {
   border: 1px solid #ccc;
   font-size: 16px;
   border-radius: 4px;
@@ -38,7 +46,7 @@
   margin-bottom: 10px;
 }
 
-.register_form button {
+.register-form button {
   border: 1px solid #ccc;
   background-color: #57068c;
   color: white;

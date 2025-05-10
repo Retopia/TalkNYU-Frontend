@@ -6,7 +6,7 @@
   height: 100%;
 }
 
-.login_form {
+.login-form {
   display: flex;
   width: 100%;
   max-width: 400px;
@@ -17,19 +17,27 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.login_form p {
+.title-text {
   font-weight: bold;
   font-size: 24px;
   margin: 0 0;
   padding: 0 0;
 }
 
-.login_form label {
+.error-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: red;
+  margin: 0 0;
+  padding: 0 0;
+}
+
+.login-form label {
   margin-top: 4px;
   margin-bottom: 2px;
 }
 
-.login_form input {
+.login-form input {
   border: 1px solid #ccc;
   font-size: 16px;
   border-radius: 4px;
@@ -38,7 +46,7 @@
   margin-bottom: 10px;
 }
 
-.login_form button {
+.login-form button {
   border: 1px solid #ccc;
   background-color: #57068c;
   color: white;

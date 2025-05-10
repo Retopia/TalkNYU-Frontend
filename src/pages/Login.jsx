@@ -34,7 +34,7 @@ function Login() {
       })
 
       if (!res.ok) {
-        throw new Error('Login failed')
+        throw new Error('Invalid username or password')
       }
 
       const data = await res.json()
@@ -51,9 +51,9 @@ function Login() {
 
   return (
     <div className={styles.container}>
-      <form className={styles.login_form} onSubmit={handleSubmit}>
-        <p>Login</p>
-        {error && <p>{error}</p>}
+      <form className={styles['login-form']} onSubmit={handleSubmit}>
+        <p className={styles['title-text']}>Login</p>
+        {error && <p className={styles['error-text']}>{error}</p>}
 
         <label>Username:</label>
         <input

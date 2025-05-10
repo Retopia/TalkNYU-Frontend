@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { useNavigate, useParams } from "react-router"
 import { EllipsisVertical, ArrowLeft, Check, ThumbsUp, Share, MessageSquareMore } from "lucide-react"
 import styles from "./ViewPost.module.css"
@@ -180,6 +180,23 @@ function CommentForm({ commentFormData, setCommentFormData, onCommentSubmit }) {
 
 function Comment({ post_id, comment_id, author, created_at, body, setComments }) {
   const [menuOpen, setMenuOpen] = useState(false)
+  const menuRef = useRef(null);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setMenuOpen(false);
+      }
+    };
+
+    if (menuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuOpen]);
+
 
   const handleCopy = () => {
     navigator.clipboard.writeText(body)
@@ -208,10 +225,6 @@ function Comment({ post_id, comment_id, author, created_at, body, setComments })
     }
   }
 
-  const handleEdit = () => {
-    setMenuOpen(false)
-  }
-
   return (
     <div className={styles['comment-container']}>
       <div className={styles['comment-header']}>
@@ -223,9 +236,8 @@ function Comment({ post_id, comment_id, author, created_at, body, setComments })
           <p className={styles['comment-time']}>{calculateData(created_at)} ago</p>
           <EllipsisVertical onClick={() => setMenuOpen(prev => !prev)} className={styles['comment-menu']} />
           {menuOpen && (
-            <div className={styles['comment-menu-popup']}>
+            <div ref={menuRef} className={styles['comment-menu-popup']}>
               <button onClick={handleCopy}>Copy</button>
-              <button onClick={handleEdit}>Edit</button>
               <button onClick={handleDelete}>Delete</button>
             </div>
           )}
