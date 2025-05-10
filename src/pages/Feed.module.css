@@ -1,10 +1,8 @@
 .container {
   scrollbar-gutter: stable;
   overflow-y: auto;
-  width: 100%;
-  height: 92vh;
+  height: 100%;
   padding-bottom: 1rem;
-  background-color: #f9f9f9;
 }
 
 .plus-button {
@@ -110,6 +108,10 @@
   font-size: 22px;
   font-weight: 700;
   margin: 0;
+}
+
+.post-body {
+  white-space: pre-wrap;
 }
 
 .avatar {

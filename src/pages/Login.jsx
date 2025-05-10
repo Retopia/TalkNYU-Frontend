@@ -40,6 +40,7 @@ function Login() {
       const data = await res.json()
       console.log(data)
       localStorage.setItem('token', data.token)
+      localStorage.setItem('username', data.user.username)
       navigate('/feed')
     } catch (err) {
       setError(err.message || 'Something went wrong');

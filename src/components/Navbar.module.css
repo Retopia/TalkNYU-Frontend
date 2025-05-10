@@ -41,8 +41,12 @@
   padding: 0.5rem 1.15rem;
   font-family: inherit;
   line-height: inherit;
-  border-radius: 0.75rem;
+  border-radius: 0.5rem;
   transition: background-color 0.2s ease;
+}
+
+.navbar_link:focus, .navbar_button:focus {
+  outline: 2px solid white;
 }
 
 .navbar_link:hover, .navbar_button:hover {

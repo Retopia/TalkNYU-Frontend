@@ -116,14 +116,14 @@ function Post({ id, owner, title, body, created_at, likes, comments, has_liked }
       </div>
       <div onClick={() => navigate(`/view/post/${id}`)} className={styles['post-content']}>
         <p className={styles['post-title']}>{title}</p>
-        <p>{body}</p>
+        <p className={styles['post-body']}>{body}</p>
       </div>
       <div className={styles['post-footer']}>
         <button onClick={handleLike} className={styles['action-button']}>
           <ThumbsUp fill={liked ? 'currentColor' : 'none'} className={liked ? styles['liked-button'] : styles['action-button-icon']} />
           {liked ? 'Liked' : 'Like'} {likeCount > 0 ? `(${likeCount})` : ''}
         </button>
-        <button className={styles['action-button']}>
+        <button onClick={() => navigate(`/view/post/${id}`)} className={styles['action-button']}>
           <MessageSquareMore className={styles['action-button-icon']} />
           Comment {commentCount > 0 ? `(${commentCount})` : ''}
         </button>
@@ -142,10 +142,10 @@ function Post({ id, owner, title, body, created_at, likes, comments, has_liked }
 // Note that currently the feed for every user is the same, it's more like a forum than twitter
 function Feed() {
   const [feedData, setFeedData] = useState([])
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
 
-  const searchData = searchParams.get("search") || "";
+  const searchData = searchParams.get("search") || ""
 
   useEffect(() => {
     const getFeed = async () => {
@@ -169,7 +169,7 @@ function Feed() {
       } catch (err) {
         console.log(err)
       }
-    };
+    }
 
     getFeed()
   }, [searchData])

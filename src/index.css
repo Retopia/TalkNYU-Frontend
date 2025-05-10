@@ -4,7 +4,7 @@
   font-weight: 400;
   
   color: #000;
-  background-color: #fff;
+  background-color: #f9f9f9;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -12,22 +12,14 @@
   -moz-osx-font-smoothing: grayscale;
 
   --primary-color: #57068c;
+  --primary-hover-color: #430D73;
   --secondary-color: #fff;
   --background-color: #f9f9f9;
   --foreground-color: #fff;
-
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    color: #fff;
-    background-color: #121212;
-  }
 }
 
 html, body {
-  width: 100%;
-  height: 100vh;
+  height: 100%;
   padding: 0;
   margin: 0;
   overflow: hidden;

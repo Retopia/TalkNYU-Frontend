@@ -2,8 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 92vh;
   background-color: rgba(250, 250, 250, 1);
+  height: 100%;
 }
 
 .login_form {
