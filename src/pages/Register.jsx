@@ -87,7 +87,7 @@ function Register() {
 
         <label>Password Confirmation:</label>
         <input
-          type="text"
+          type="password"
           name="passwordConfirmation"
           value={passwordConfirmation}
           onChange={(e) => setPasswordConfirmation(e.target.value)}
