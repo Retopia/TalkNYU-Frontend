@@ -105,7 +105,7 @@ function Post({ id, owner, title, body, created_at, likes, comments, has_liked }
 
   return (
     <div className={styles['post']}>
-      <div onClick={() => navigate(`/post/${id}`)} className={styles['post-header']}>
+      <div onClick={() => navigate(`/view/post/${id}`)} className={styles['post-header']}>
         <div className={styles['post-metadata']}>
           <div className={styles['avatar']}>{owner[0].toUpperCase()}</div>
           <div className={styles['post-descriptor']}>

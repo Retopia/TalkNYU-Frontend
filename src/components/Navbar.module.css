@@ -45,7 +45,7 @@
   transition: background-color 0.2s ease;
 }
 
-.navbar_link:focus, .navbar_button:focus {
+.navbar_link:focus-visible, .navbar_button:focus-visible {
   outline: 2px solid white;
 }
 

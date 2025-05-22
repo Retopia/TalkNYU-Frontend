@@ -273,7 +273,7 @@ function CommentList({ comments, setComments }) {
 
 function ViewPost() {
   const { id } = useParams()
-  const [postData, setPostData] = useState({})
+  const [postData, setPostData] = useState(null)
   const [commentFormData, setCommentFormData] = useState('')
   const [comments, setComments] = useState([])
 
@@ -295,14 +295,14 @@ function ViewPost() {
         const data = await response.json()
         console.log(data)
         setPostData(data)
-        setComments(data.comments)
+        setComments(data.comments || [])
       } catch (err) {
         console.log(err)
       }
     }
 
     fetchPost()
-  }, [])
+  }, [id])
 
   const onCommentSubmit = async () => {
     try {
